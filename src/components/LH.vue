@@ -17,14 +17,23 @@
         </Modal>
       </div>
   </div>
+    <div class="body">
+     <div id="clock">
+      <p class="date">{{ date }}</p>
+      <p class="time">{{ time }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+let week = ['星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
 export default {
   name: 'LH',
   data () {
     return {
+      time: '',
+      date: '',
       modal4: false,
       flag1: false,
       flag2: false,
@@ -33,6 +42,18 @@ export default {
     }
   },
   methods: {
+    zeroPadding (num, digit) {
+      let zero = ''
+      for (let i = 0; i < digit; i++) {
+        zero += '0'
+      }
+      return (zero + num).slice(-digit)
+    },
+    updateTime () {
+      let cd = new Date()
+      this.time = this.zeroPadding(cd.getHours(), 2) + ':' + this.zeroPadding(cd.getMinutes(), 2) + ':' + this.zeroPadding(cd.getSeconds(), 2)
+      this.date = this.zeroPadding(cd.getFullYear(), 4) + '-' + this.zeroPadding(cd.getMonth() + 1, 2) + '-' + this.zeroPadding(cd.getDate(), 2) + ' ' + week[cd.getDay()]
+    },
     del () {
       this.modal_loading = true
       setTimeout(() => {
@@ -66,6 +87,9 @@ export default {
       this.flag3 = false
       this.flag4 = true
     }
+  },
+  mounted () {
+    setInterval(this.updateTime, 1000)
   }
 }
 </script>
@@ -93,5 +117,34 @@ export default {
     font-size: 16px;
     margin-top: 11px;
     cursor:default;
+  }
+  #clock {
+    font-family: 'Share Tech Mono', monospace;
+    color: #ffffff;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    color: #daf6ff;
+    text-shadow: 0 0 20px #0aafe6, 0 0 20px rgba(10, 175, 230, 0);
+  }
+  #clock .time {
+    letter-spacing: 0.05em;
+    font-size: 80px;
+    padding: 5px 0;
+  }
+  #clock .date {
+    letter-spacing: 0.1em;
+    font-size: 24px;
+  }
+  .body {
+    width: 100%;
+    height: 1053px;
+    background: #0f3854;
+    background: -webkit-radial-gradient(ellipse at center, #0a2e38 0%, #000000 70%);
+    background: radial-gradient(ellipse at center, #0a2e38 0%, #000000 70%);
+    background-size: 100%;
   }
 </style>
