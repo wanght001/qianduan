@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="total">
     <div class="top">
       <div style="margin-left: 27%" @click=home v-bind:class = "{change: flag1}"><p>Home</p></div>
       <div @click=about v-bind:class = "{change: flag2}"><p>About Me</p></div>
@@ -17,7 +17,7 @@
         </Modal>
       </div>
     </div>
-    <div class="body">
+    <div>
       <div v-if="flag1===true">
       <Home></Home>
       </div>
@@ -79,6 +79,14 @@ export default {
 </script>
 
 <style scoped>
+  .total{
+    position: absolute;
+    left: 0;right: 0;bottom: 0;top: 0;
+    background: #0f3854;
+    background: -webkit-radial-gradient(ellipse at center, #0a2e38 0%, #000000 70%);
+    background: radial-gradient(ellipse at center, #0a2e38 0%, #000000 70%);
+    background-size: 100%;
+  }
   .top{
     width: 100%;
     margin-left: auto;
@@ -101,13 +109,5 @@ export default {
     font-size: 16px;
     margin-top: 11px;
     cursor:default;
-  }
-  .body {
-    width: 100%;
-    height: 758px;
-    background: #0f3854;
-    background: -webkit-radial-gradient(ellipse at center, #0a2e38 0%, #000000 70%);
-    background: radial-gradient(ellipse at center, #0a2e38 0%, #000000 70%);
-    background-size: 100%;
   }
 </style>
